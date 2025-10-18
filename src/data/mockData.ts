@@ -3,8 +3,8 @@ import { ResourceType, SpawnType, MapMarker } from '../types';
 export const resourceTypes: ResourceType[] = [
   { id: 'metal', name: 'Metal', color: '#94a3b8', icon: '⛏️' },
   { id: 'crystal', name: 'Crystal', color: '#06b6d4', icon: '💎' },
-  { id: 'obsidian', name: 'Obsidian', color: '#1e293b', icon: '🪨' },
-  { id: 'oil', name: 'Oil', color: '#0f172a', icon: '🛢️' },
+  { id: 'obsidian', name: 'Obsidian', color: '#8b5cf6', icon: '🪨' },
+  { id: 'oil', name: 'Oil', color: '#a855f7', icon: '🛢️' },
   { id: 'polymer', name: 'Polymer', color: '#f59e0b', icon: '🧪' },
   { id: 'pearls', name: 'Silica Pearls', color: '#e0f2fe', icon: '🦪' },
 ];
