@@ -34,20 +34,20 @@ export default function FilterSidebar({
       ></div>
 
       <div
-        className={`fixed lg:relative top-0 right-0 h-full w-80 bg-slate-900/95 backdrop-blur-md border-l border-slate-700/50 z-50 transition-transform duration-300 ${
+        className={`fixed lg:relative top-0 right-0 h-full w-80 glass-effect border-l-[3px] border-cyan-500/30 z-50 transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'
         }`}
       >
         <div className="h-full flex flex-col">
-          <div className="p-6 border-b border-slate-700/50 flex items-center justify-between">
-            <h2 className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+          <div className="p-6 border-b-[3px] border-cyan-500/20 flex items-center justify-between">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent drop-shadow-lg">
               Filters
             </h2>
             <button
               onClick={onClose}
-              className="lg:hidden p-2 hover:bg-slate-800 rounded-lg transition-colors"
+              className="lg:hidden p-3 glass-effect-light rounded-2xl hover:scale-110 transition-all duration-300 border-2 border-cyan-500/30"
             >
-              <X className="w-5 h-5 text-slate-400" />
+              <X className="w-6 h-6 text-cyan-300" />
             </button>
           </div>
 
@@ -74,41 +74,44 @@ export default function FilterSidebar({
                     <button
                       key={item.id}
                       onClick={() => onFilterToggle(item.id)}
-                      className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-300 transform hover:scale-102 ${
+                      className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 border-[3px] ${
                         isSelected
-                          ? 'bg-gradient-to-r from-slate-700/50 to-slate-800/50 border-2 shadow-lg'
-                          : 'bg-slate-800/30 border-2 border-transparent hover:bg-slate-800/50'
+                          ? 'glass-effect shadow-2xl'
+                          : 'glass-effect-light border-transparent hover:border-slate-600/50'
                       }`}
                       style={{
-                        borderColor: isSelected ? item.color : 'transparent',
-                        boxShadow: isSelected ? `0 0 20px ${item.color}40` : 'none',
+                        borderColor: isSelected ? item.color : undefined,
+                        boxShadow: isSelected ? `0 0 30px ${item.color}60, inset 0 0 20px ${item.color}20` : undefined,
                       }}
                     >
                       <div
-                        className="w-10 h-10 rounded-lg flex items-center justify-center text-xl transition-transform duration-300"
+                        className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl transition-all duration-300 border-2"
                         style={{
-                          backgroundColor: `${item.color}20`,
-                          transform: isSelected ? 'rotate(12deg) scale(1.1)' : 'rotate(0deg)',
+                          backgroundColor: `${item.color}30`,
+                          borderColor: `${item.color}60`,
+                          transform: isSelected ? 'rotate(12deg) scale(1.15)' : 'rotate(0deg)',
+                          boxShadow: isSelected ? `0 0 20px ${item.color}50` : 'none',
                         }}
                       >
                         {item.icon}
                       </div>
                       <div className="flex-1 text-left">
-                        <div className="font-medium text-white">{item.name}</div>
-                        <div className="text-xs text-slate-400">
+                        <div className="font-bold text-white text-lg">{item.name}</div>
+                        <div className="text-sm font-medium" style={{ color: isSelected ? item.color : 'rgb(148, 163, 184)' }}>
                           {isSelected ? 'Visible' : 'Hidden'}
                         </div>
                       </div>
                       <div
-                        className={`w-5 h-5 rounded-full border-2 transition-all duration-300 ${
+                        className={`w-7 h-7 rounded-full border-[3px] transition-all duration-300 ${
                           isSelected ? 'scale-100' : 'scale-0'
                         }`}
                         style={{
                           backgroundColor: item.color,
                           borderColor: item.color,
+                          boxShadow: `0 0 15px ${item.color}80`,
                         }}
                       >
-                        <div className="w-full h-full flex items-center justify-center text-white text-xs">
+                        <div className="w-full h-full flex items-center justify-center text-white text-sm font-bold">
                           ✓
                         </div>
                       </div>
@@ -118,7 +121,7 @@ export default function FilterSidebar({
               </div>
             </div>
 
-            <div className="mt-6 pt-6 border-t border-slate-700/50">
+            <div className="mt-6 pt-6 border-t-[3px] border-cyan-500/20">
               <button
                 onClick={() => {
                   items.forEach((item) => {
@@ -127,7 +130,7 @@ export default function FilterSidebar({
                     }
                   });
                 }}
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 text-cyan-400 font-semibold hover:from-cyan-500/30 hover:to-blue-500/30 transition-all duration-300"
+                className="w-full py-4 px-6 rounded-2xl glass-effect-light border-[3px] border-cyan-500/40 text-cyan-300 font-bold hover:scale-105 hover:shadow-cyan-500/50 transition-all duration-300 shadow-lg"
               >
                 Select All
               </button>
@@ -139,7 +142,7 @@ export default function FilterSidebar({
                     }
                   });
                 }}
-                className="w-full mt-2 py-3 px-4 rounded-xl bg-slate-800/50 border border-slate-700 text-slate-400 font-semibold hover:bg-slate-800 transition-all duration-300"
+                className="w-full mt-3 py-4 px-6 rounded-2xl glass-effect-light border-[3px] border-slate-600/40 text-slate-300 font-bold hover:scale-105 hover:border-red-500/50 hover:text-red-400 transition-all duration-300 shadow-lg"
               >
                 Clear All
               </button>

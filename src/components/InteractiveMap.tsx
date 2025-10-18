@@ -76,30 +76,31 @@ export default function InteractiveMap({
   }, []);
 
   return (
-    <div className="relative w-full h-full bg-slate-900 rounded-3xl overflow-hidden border border-slate-700/50 shadow-2xl">
-      <div className="absolute top-4 right-4 z-20 flex gap-2">
+    <div className="relative w-full h-full rounded-3xl overflow-hidden animated-border animate-border shadow-2xl">
+      <div className="absolute inset-0 glass-effect rounded-3xl"></div>
+      <div className="absolute top-4 right-4 z-20 flex gap-3">
         <button
           onClick={() => setZoom(Math.min(zoom + 0.2, 3))}
-          className="p-3 rounded-xl bg-slate-800/90 backdrop-blur-sm border border-slate-700/50 text-slate-300 hover:text-white hover:bg-slate-700 transition-all duration-300 shadow-lg hover:scale-110"
+          className="p-4 rounded-2xl glass-effect-light text-cyan-300 hover:text-cyan-400 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-cyan-500/50 border-2 border-cyan-500/30"
         >
-          <ZoomIn className="w-5 h-5" />
+          <ZoomIn className="w-6 h-6" />
         </button>
         <button
           onClick={() => setZoom(Math.max(zoom - 0.2, 0.5))}
-          className="p-3 rounded-xl bg-slate-800/90 backdrop-blur-sm border border-slate-700/50 text-slate-300 hover:text-white hover:bg-slate-700 transition-all duration-300 shadow-lg hover:scale-110"
+          className="p-4 rounded-2xl glass-effect-light text-cyan-300 hover:text-cyan-400 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-cyan-500/50 border-2 border-cyan-500/30"
         >
-          <ZoomOut className="w-5 h-5" />
+          <ZoomOut className="w-6 h-6" />
         </button>
         <button
           onClick={resetView}
-          className="p-3 rounded-xl bg-slate-800/90 backdrop-blur-sm border border-slate-700/50 text-slate-300 hover:text-white hover:bg-slate-700 transition-all duration-300 shadow-lg hover:scale-110"
+          className="p-4 rounded-2xl glass-effect-light text-cyan-300 hover:text-cyan-400 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-cyan-500/50 border-2 border-cyan-500/30"
         >
-          <Maximize2 className="w-5 h-5" />
+          <Maximize2 className="w-6 h-6" />
         </button>
       </div>
 
-      <div className="absolute top-4 left-4 z-20 px-4 py-2 rounded-xl bg-slate-800/90 backdrop-blur-sm border border-slate-700/50">
-        <div className="text-xs text-slate-400">Zoom: {(zoom * 100).toFixed(0)}%</div>
+      <div className="absolute top-4 left-4 z-20 px-5 py-3 rounded-2xl glass-effect-light border-2 border-violet-500/30 shadow-lg">
+        <div className="text-sm font-bold text-violet-300">Zoom: {(zoom * 100).toFixed(0)}%</div>
       </div>
 
       <div
@@ -152,36 +153,36 @@ export default function InteractiveMap({
               >
                 <div
                   className={`relative transition-all duration-300 ${
-                    isHovered ? 'scale-125' : 'scale-100'
+                    isHovered ? 'scale-150' : 'scale-100'
                   }`}
                 >
                   <div
-                    className="absolute inset-0 rounded-full blur-lg animate-pulse"
+                    className="absolute inset-0 rounded-full blur-xl"
                     style={{
                       backgroundColor: color,
-                      opacity: isHovered ? 0.6 : 0.3,
+                      opacity: isHovered ? 0.8 : 0.4,
+                      animation: 'glow-pulse 2s ease-in-out infinite',
                     }}
                   ></div>
 
                   <div
-                    className="relative w-10 h-10 rounded-full flex items-center justify-center text-xl shadow-lg border-2 cursor-pointer"
+                    className="relative w-12 h-12 rounded-full flex items-center justify-center text-2xl shadow-2xl border-[3px] transition-all duration-300"
                     style={{
-                      backgroundColor: `${color}30`,
+                      backgroundColor: `${color}40`,
                       borderColor: color,
-                      boxShadow: `0 0 20px ${color}60`,
+                      boxShadow: `0 0 30px ${color}80, 0 0 60px ${color}40, inset 0 0 20px ${color}30`,
                     }}
                   >
                     {icon}
                   </div>
 
                   {isHovered && (
-                    <div className="absolute left-1/2 top-full mt-2 transform -translate-x-1/2 whitespace-nowrap pointer-events-none">
+                    <div className="absolute left-1/2 top-full mt-3 transform -translate-x-1/2 whitespace-nowrap pointer-events-none">
                       <div
-                        className="px-4 py-2 rounded-lg text-sm font-semibold text-white shadow-xl border animate-fade-in"
+                        className="px-6 py-3 rounded-2xl text-sm font-bold text-white shadow-2xl border-[3px] animate-fade-in glass-effect-light"
                         style={{
-                          backgroundColor: `${color}20`,
                           borderColor: color,
-                          backdropFilter: 'blur(10px)',
+                          boxShadow: `0 0 30px ${color}60, inset 0 0 20px ${color}20`,
                         }}
                       >
                         {marker.label}
