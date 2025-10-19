@@ -42,7 +42,7 @@ export default function FilterSidebar({
       ></div>
 
       <div
-        className={`fixed lg:relative top-0 right-0 h-full w-96 glass-effect border-l-[3px] border-cyan-500/30 z-50 transition-transform duration-300 overflow-hidden ${
+        className={`fixed lg:relative top-0 right-0 h-full w-80 glass-effect border-l-[3px] border-cyan-500/30 z-50 transition-transform duration-300 overflow-hidden ${
           isOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'
         }`}
       >
