@@ -1,6 +1,6 @@
 import { MapType, ResourceType, SpawnType } from '../types';
-import { X, ChevronDown } from 'lucide-react';
-import { useState } from 'react';
+import { X, ChevronDown, Search } from 'lucide-react';
+import { useState, useMemo } from 'react';
 
 interface FilterSidebarProps {
   mapType: MapType;
@@ -22,7 +22,15 @@ export default function FilterSidebar({
   onClose,
 }: FilterSidebarProps) {
   const [isExpanded, setIsExpanded] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
   const items = mapType === 'resource' ? resourceTypes : spawnTypes;
+
+  const filteredItems = useMemo(() => {
+    if (!searchQuery.trim()) return items;
+    return items.filter(item =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [items, searchQuery]);
 
   return (
     <>
@@ -34,7 +42,7 @@ export default function FilterSidebar({
       ></div>
 
       <div
-        className={`fixed lg:relative top-0 right-0 h-full w-80 glass-effect border-l-[3px] border-cyan-500/30 z-50 transition-transform duration-300 ${
+        className={`fixed lg:relative top-0 right-0 h-full w-80 glass-effect border-l-[3px] border-cyan-500/30 z-50 transition-transform duration-300 overflow-hidden ${
           isOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0'
         }`}
       >
@@ -51,6 +59,19 @@ export default function FilterSidebar({
             </button>
           </div>
 
+          <div className="p-6 border-b-[3px] border-cyan-500/20">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-cyan-400" />
+              <input
+                type="text"
+                placeholder="Search filters..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 rounded-2xl glass-effect-light border-[3px] border-cyan-500/30 text-white placeholder-slate-400 focus:border-cyan-400 focus:outline-none transition-all duration-300 focus:shadow-lg focus:shadow-cyan-500/30"
+              />
+            </div>
+          </div>
+
           <div className="flex-1 overflow-y-auto p-6">
             <div className="mb-4">
               <button
@@ -64,17 +85,22 @@ export default function FilterSidebar({
               </button>
 
               <div
-                className={`space-y-2 transition-all duration-300 overflow-hidden ${
+                className={`space-y-3 transition-all duration-300 overflow-hidden ${
                   isExpanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
                 }`}
               >
-                {items.map((item) => {
+                {filteredItems.length === 0 ? (
+                  <div className="text-center py-8 text-slate-400">
+                    No filters found
+                  </div>
+                ) : (
+                  filteredItems.map((item) => {
                   const isSelected = selectedFilters.includes(item.id);
                   return (
                     <button
                       key={item.id}
                       onClick={() => onFilterToggle(item.id)}
-                      className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 transform hover:scale-105 border-[3px] ${
+                      className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02] border-[3px] ${
                         isSelected
                           ? 'glass-effect shadow-2xl'
                           : 'glass-effect-light border-transparent hover:border-slate-600/50'
@@ -85,24 +111,24 @@ export default function FilterSidebar({
                       }}
                     >
                       <div
-                        className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl transition-all duration-300 border-2"
+                        className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl transition-all duration-300 border-2 flex-shrink-0"
                         style={{
                           backgroundColor: `${item.color}30`,
                           borderColor: `${item.color}60`,
-                          transform: isSelected ? 'rotate(12deg) scale(1.15)' : 'rotate(0deg)',
+                          transform: isSelected ? 'rotate(12deg) scale(1.1)' : 'rotate(0deg)',
                           boxShadow: isSelected ? `0 0 20px ${item.color}50` : 'none',
                         }}
                       >
                         {item.icon}
                       </div>
-                      <div className="flex-1 text-left">
+                      <div className="flex-1 text-left min-w-0">
                         <div className="font-bold text-white text-lg">{item.name}</div>
                         <div className="text-sm font-medium" style={{ color: isSelected ? item.color : 'rgb(148, 163, 184)' }}>
                           {isSelected ? 'Visible' : 'Hidden'}
                         </div>
                       </div>
                       <div
-                        className={`w-7 h-7 rounded-full border-[3px] transition-all duration-300 ${
+                        className={`w-7 h-7 rounded-full border-[3px] transition-all duration-300 flex-shrink-0 ${
                           isSelected ? 'scale-100' : 'scale-0'
                         }`}
                         style={{
@@ -117,7 +143,8 @@ export default function FilterSidebar({
                       </div>
                     </button>
                   );
-                })}
+                  })
+                )}
               </div>
             </div>
 

@@ -113,7 +113,7 @@ export default function InteractiveMap({
         onMouseLeave={handleMouseUp}
       >
         <div
-          className="relative w-full h-full transition-transform duration-100"
+          className="relative w-full h-full transition-transform duration-300 ease-out"
           style={{
             transform: `translate(${position.x}px, ${position.y}px) scale(${zoom})`,
             transformOrigin: 'center center',
