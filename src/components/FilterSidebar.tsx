@@ -100,7 +100,7 @@ export default function FilterSidebar({
                     <button
                       key={item.id}
                       onClick={() => onFilterToggle(item.id)}
-                      className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02] border-[3px] ${
+                      className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-300 border-[3px] ${
                         isSelected
                           ? 'glass-effect shadow-2xl'
                           : 'glass-effect-light border-transparent hover:border-slate-600/50'
@@ -111,24 +111,24 @@ export default function FilterSidebar({
                       }}
                     >
                       <div
-                        className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl transition-all duration-300 border-2 flex-shrink-0"
+                        className="w-10 h-10 rounded-xl flex items-center justify-center text-xl transition-all duration-300 border-2 flex-shrink-0"
                         style={{
                           backgroundColor: `${item.color}30`,
                           borderColor: `${item.color}60`,
-                          transform: isSelected ? 'rotate(12deg) scale(1.1)' : 'rotate(0deg)',
+                          transform: isSelected ? 'rotate(8deg) scale(1.05)' : 'rotate(0deg)',
                           boxShadow: isSelected ? `0 0 20px ${item.color}50` : 'none',
                         }}
                       >
                         {item.icon}
                       </div>
                       <div className="flex-1 text-left min-w-0">
-                        <div className="font-bold text-white text-lg">{item.name}</div>
-                        <div className="text-sm font-medium" style={{ color: isSelected ? item.color : 'rgb(148, 163, 184)' }}>
+                        <div className="font-bold text-white text-base">{item.name}</div>
+                        <div className="text-xs font-medium" style={{ color: isSelected ? item.color : 'rgb(148, 163, 184)' }}>
                           {isSelected ? 'Visible' : 'Hidden'}
                         </div>
                       </div>
                       <div
-                        className={`w-7 h-7 rounded-full border-[3px] transition-all duration-300 flex-shrink-0 ${
+                        className={`w-6 h-6 rounded-full border-[3px] transition-all duration-300 flex-shrink-0 ${
                           isSelected ? 'scale-100' : 'scale-0'
                         }`}
                         style={{
@@ -137,7 +137,7 @@ export default function FilterSidebar({
                           boxShadow: `0 0 15px ${item.color}80`,
                         }}
                       >
-                        <div className="w-full h-full flex items-center justify-center text-white text-sm font-bold">
+                        <div className="w-full h-full flex items-center justify-center text-white text-xs font-bold">
                           ✓
                         </div>
                       </div>
